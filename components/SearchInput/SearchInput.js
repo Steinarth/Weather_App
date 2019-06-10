@@ -7,6 +7,28 @@ import PropTypes from 'prop-types';
 
 
 export default class SearchInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: '',
+    };
+  }
+
+
+  handleChangeText = (text) => {
+    this.setState({text});
+  };
+
+  /** Call Parent onSubmit function with the text property **/
+  handleSubmitEditing = () => {
+    const { onSubmit } = this.props;
+    const { text }  = this.state;
+
+    if(!text) return;
+    onSubmit(text);
+    this.setState({text: ''});
+  };
+
   render() {
       let { placeholder } = this.props;
     return (
@@ -18,6 +40,8 @@ export default class SearchInput extends React.Component {
                 underlineColorAndroid="transparent"
                 style={styles.textInput}
                 clearButtonMode="always"
+                onChangeText={this.handleChangeText}
+                onSubmitEditing={this.handleSubmitEditing}
             />
         </View>
     );
