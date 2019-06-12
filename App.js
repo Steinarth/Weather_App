@@ -6,12 +6,14 @@ import { Platform,
          View, 
          ImageBackground,
          ActivityIndicator,
-         StatusBar } from 'react-native';
+         StatusBar, 
+         Image } from 'react-native';
 
 import getImageForWeather from './utils/getImageForWeather';
 import { fetchLocationId, fetchWeather } from './utils/api';
          
 import SearchInput from './components/SearchInput/SearchInput';
+import ErrorC from './components/Error/ErrorC';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -22,7 +24,7 @@ export default class App extends React.Component {
       loading: false,
       temperature: 0,
       weather: '',
-      image: '',
+      image: undefined,
     };
 
     this.handleUpdateLocation = this.handleUpdateLocation.bind(this);
@@ -56,7 +58,8 @@ export default class App extends React.Component {
         this.setState({
           loading: false,
           error: true,
-        });
+          image: ''
+      });
       }
     });
   };
@@ -70,8 +73,8 @@ export default class App extends React.Component {
         behavior="padding"
       >
         <StatusBar barStyle="light-content" />
-        {image != '' && <ImageBackground
-          source={image}
+        {<ImageBackground
+          source={image || undefined}
           style={styles.imageContainer}
           imageStyle={styles.image}
         >
@@ -86,27 +89,20 @@ export default class App extends React.Component {
             {!loading && (
               <View>
                 {error && (
-                  <Text style={[styles.smallText, styles.textStyle]}>
-                    Could not load weather, please try a different
-                    city.
-                  </Text>
+                  <ErrorC />
                 )}
 
                 {!error && (
                   <View>
-                    <Text
-                      style={[styles.largeText, styles.textStyle]}
-                    >
+                    <Text style={[styles.largeText, styles.textStyle]} >
                       {location}
                     </Text>
-                    <Text
-                      style={[styles.smallText, styles.textStyle]}
-                    >
+                    
+                    <Text style={[styles.smallText, styles.textStyle]} >
                       {weather}
                     </Text>
-                    <Text
-                      style={[styles.largeText, styles.textStyle]}
-                    >
+
+                    <Text style={[styles.largeText, styles.textStyle]} >
                       {`${Math.round(temperature)}°`}
                     </Text>
                   </View>
@@ -157,5 +153,5 @@ const styles = StyleSheet.create({
   },
   smallText: {
     fontSize: 18,
-  },
+  }
 });

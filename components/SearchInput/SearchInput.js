@@ -51,6 +51,9 @@ export default class SearchInput extends React.Component {
 SearchInput.propTypes = {
     // The text we display inside the textbox
     placeholder: PropTypes.string.isRequired,
+    // The parent function that is called when user presses 
+    // "Enter" inside the searchbox
+    onSubmit   : PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
