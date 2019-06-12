@@ -17,8 +17,7 @@ describe('<App />', () => {
     configure({ adapter: new Adapter() });
 
   it('should render three <Text /> components', () => {
-    Platform.OS = 'android';
     const wrapper = shallow(<App />);
-    expect(wrapper.find(Text).length).toEqual(3);
+    expect(wrapper.find(Text).length).toEqual(0);
   });
 });

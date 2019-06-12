@@ -14,7 +14,7 @@ export default class SearchInput extends React.Component {
     };
   }
 
-
+  /** Change the state to match the text written in the inputBox **/
   handleChangeText = (text) => {
     this.setState({text});
   };

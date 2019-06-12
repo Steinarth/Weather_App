@@ -6,8 +6,7 @@ import { Platform,
          View, 
          ImageBackground,
          ActivityIndicator,
-         StatusBar, 
-         Image } from 'react-native';
+        } from 'react-native';
 
 import getImageForWeather from './utils/getImageForWeather';
 import { fetchLocationId, fetchWeather } from './utils/api';
@@ -72,7 +71,7 @@ export default class App extends React.Component {
         style={styles.container}
         behavior="padding"
       >
-        <StatusBar barStyle="light-content" />
+        
         {<ImageBackground
           source={image || undefined}
           style={styles.imageContainer}
