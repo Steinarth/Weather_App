@@ -1,7 +1,6 @@
 import React from 'react';
 import { Platform, 
          StyleSheet, 
-         Text,
          KeyboardAvoidingView, 
          View, 
          ImageBackground,
@@ -44,7 +43,9 @@ export default class App extends React.Component {
       // If not undefined set the location, weather, ... properties in the state
       try {
         const locationId = await fetchLocationId(city);
+        
         const { location, weather, temperature } = await fetchWeather(locationId);
+
         const image = await getImageForWeather(weather); 
 
         this.setState({
@@ -82,11 +83,13 @@ export default class App extends React.Component {
         >
         
           <View style={styles.detailsContainer}>
-            <ActivityIndicator
-              animating={loading}
-              color="white"
-              size="large"
-            />
+            { loading &&
+              <ActivityIndicator
+                animating={loading}
+                color="white"
+                size="large"
+              />
+            }
 
             {!loading && (
               <View>
