@@ -5,10 +5,12 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "test": "jest"
+    "test": "jest",
+    "test:badge": "yarn run make-coverage-badge"
   },
   "dependencies": {
     "expo": "^31.0.2",
+    "jest-coverage-badges": "^1.1.2",
     "prop-types": "^15.7.2",
     "react": "16.5.0",
     "react-dom": "^16.8.6",
@@ -29,6 +31,11 @@
       "!**/node_modules/**",
       "!**/babel.config.js",
       "!**/jest.setup.js"
+    ],
+    "coverageReporters": [
+      "json-summary", 
+      "text",
+      "lcov"
     ]
   },
   "private": true

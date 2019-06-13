@@ -13,6 +13,7 @@ import { fetchLocationId, fetchWeather } from './utils/api';
          
 import SearchInput from './components/SearchInput/SearchInput';
 import ErrorC from './components/Error/ErrorC';
+import WeatherInformation from './components/WeatherInformation/WeatherInformation';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -29,16 +30,18 @@ export default class App extends React.Component {
     this.handleUpdateLocation = this.handleUpdateLocation.bind(this);
   }
 
-
+  /** Start with the city of San Francisco **/
   componentDidMount() {
     this.handleUpdateLocation('San Francisco');
   };
 
-  // Update the information about the city from the inputbox
+  /** Update the information about the city from the inputbox  **/
   handleUpdateLocation = async (city) => {
     if (!city) return;
 
+    // Start the loading icon untill either fails or succeeds
     this.setState({ loading: true }, async () => {
+      // If not undefined set the location, weather, ... properties in the state
       try {
         const locationId = await fetchLocationId(city);
         const { location, weather, temperature } = await fetchWeather(locationId);
@@ -52,7 +55,7 @@ export default class App extends React.Component {
           temperature,
           image
         });
-
+        // If fails show the error screen (update error state)
       } catch (e) {
         this.setState({
           loading: false,
@@ -92,19 +95,12 @@ export default class App extends React.Component {
                 )}
 
                 {!error && (
-                  <View>
-                    <Text style={[styles.largeText, styles.textStyle]} >
-                      {location}
-                    </Text>
-                    
-                    <Text style={[styles.smallText, styles.textStyle]} >
-                      {weather}
-                    </Text>
+                  <WeatherInformation 
+                    location={location}
+                    weather={weather}
+                    temperature={temperature}
 
-                    <Text style={[styles.largeText, styles.textStyle]} >
-                      {`${Math.round(temperature)}°`}
-                    </Text>
-                  </View>
+                  />
                 )}
 
                 <SearchInput

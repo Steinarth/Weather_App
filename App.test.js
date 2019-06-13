@@ -9,9 +9,6 @@ import { configure, shallow } from 'enzyme';
 import App from './App';
 import { platform } from 'os';
 
-
-
-
 describe('<App />', () => {
     // Initialize Adapter for Enzyme ..
     configure({ adapter: new Adapter() });
@@ -20,4 +17,15 @@ describe('<App />', () => {
     const wrapper = shallow(<App />);
     expect(wrapper.find(Text).length).toEqual(0);
   });
+
+  // handleUpdateLocation
+  it('Should stop loading when finished with the update function ', async () => {
+    const wrapper = shallow( <App />);
+
+        await wrapper.instance().handleUpdateLocation();
+
+        expect(wrapper.state('loading')).toEqual(false);
+
+  });
+
 });
